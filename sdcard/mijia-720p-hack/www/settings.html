@@ -1,173 +1,344 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width" />
-    <title>Mijia 720P hack</title>
-    <link rel="stylesheet" href="mijia.css">
-  </head>
-  <body>
-    <ul class="topnav">
-      <li><a href="index.html">Home</a></li>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mijia 720p Hack - Settings</title>
+  <link rel="stylesheet" href="mijia.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+      Mijia 720p Hack
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Dashboard</a></li>
       <li><a href="settings.html" class="active">Settings</a></li>
-      <li class="right"><a href="about.html">About</a></li>
+      <li><a href="recordings.html">Recordings</a></li>
+      <li><a href="about.html">About</a></li>
     </ul>
+  </nav>
 
-    <div style="padding:0 16px;">
-      <h1>Camera Settings - Not Working yet</h1>
-      <table>
-<tr>
-  <td>Status Light</td>
-  <td>
-    <label class="switch">
-      <input type="checkbox" >
-      <span class="slider"></span>
-    </label>
-  </td>
-</tr>
-  <tr>
-    <td>Night vision</td>
-    <td>
-       <label class="nice-select">
-         <select>
-           <option selected>automatic</option>
-           <option >off</option>
-           <option >on</option>
-        </select>
-      </label>
-    </td>
-  </tr>
-      </table>
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <div>
+        <h1 style="font-size: 1.5rem; font-weight: 700;">Camera Configuration</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          Configure network, services, hardware defaults, and Home Assistant integration.
+        </p>
+      </div>
+      <button class="btn btn-primary" onclick="saveAllSettings()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+        Save Settings
+      </button>
+    </div>
 
-      <h1>System Settings</h1>
-      <table>
-<tr>
-  <td>Prevent online updates</td>
-  <td>
-    <label class="switch">
-      <input type="checkbox" checked>
-      <span class="slider"></span>
-    </label>
-  </td>
-</tr>
-  <tr>
-    <td>Time Zone</td>
-    <td>
-      <label class="nice-select">
-        <select>
-<option >GMT</option>
-<option >GMT+0</option>
-<option >GMT+1</option>
-<option >GMT+10</option>
-<option >GMT+11</option>
-<option >GMT+12</option>
-<option >GMT+2</option>
-<option >GMT+3</option>
-<option >GMT+4</option>
-<option >GMT+5</option>
-<option >GMT+6</option>
-<option >GMT+7</option>
-<option >GMT+8</option>
-<option >GMT+9</option>
-<option >GMT-0</option>
-<option >GMT-1</option>
-<option >GMT-10</option>
-<option >GMT-11</option>
-<option >GMT-12</option>
-<option >GMT-13</option>
-<option >GMT-14</option>
-<option >GMT-2</option>
-<option >GMT-3</option>
-<option >GMT-4</option>
-<option >GMT-5</option>
-<option >GMT-6</option>
-<option >GMT-7</option>
-<option >GMT-8</option>
-<option >GMT-9</option>
-<option >GMT0</option>
-<option >Greenwich</option>
-<option >UCT</option>
-<option selected>UTC</option>
-<option >Universal</option>
-<option >Zulu</option>
-        </select>
-      </label>
-    </td>
-  </tr>
-      </table>
+    <div class="grid">
+      <!-- Left Column: WiFi & Services -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
 
-      <h1>Service Settings</h1>
-      <table>
-<tr>
-  <td>Xiaomi Cloud Services</td>
-  <td>
-    <label class="switch">
-      <input type="checkbox" checked>
-      <span class="slider"></span>
-    </label>
-  </td>
-</tr>
-<tr>
-  <td>RTSP Streaming Server</td>
-  <td>
-    <label class="switch">
-      <input type="checkbox" checked>
-      <span class="slider"></span>
-    </label>
-  </td>
-</tr>
-<tr>
-  <td>Telnet Server</td>
-  <td>
-    <label class="switch">
-      <input type="checkbox" >
-      <span class="slider"></span>
-    </label>
-  </td>
-</tr>
-<tr>
-  <td>SSH Server</td>
-  <td>
-    <label class="switch">
-      <input type="checkbox" checked>
-      <span class="slider"></span>
-    </label>
-  </td>
-</tr>
-<tr>
-  <td>HTTP Server</td>
-  <td>
-    <label class="switch">
-      <input type="checkbox" checked>
-      <span class="slider"></span>
-    </label>
-  </td>
-</tr>
-<tr>
-  <td>FTP Server</td>
-  <td>
-    <label class="switch">
-      <input type="checkbox" >
-      <span class="slider"></span>
-    </label>
-  </td>
-</tr>
-<tr>
-  <td>SAMBA Server</td>
-  <td>
-    <label class="switch">
-      <input type="checkbox" >
-      <span class="slider"></span>
-    </label>
-  </td>
-</tr>
-      </table>
-    <div>
-    <script type="text/javascript">
-      var ip = location.host;
-      document.getElementById("ip").textContent=ip;
-      document.getElementById("ch0_0").href="rtsp://"+ip+":554/live/ch00_0";
-    </script>
-  </body>
+        <!-- WiFi Settings -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4zm0 3.5c3.52 0 6.74 1.34 9.17 3.53L12 19.28 2.83 11.03C5.26 8.84 8.48 7.5 12 7.5z"/></svg>
+              WiFi Network Configuration
+            </span>
+          </div>
+          <div class="form-group">
+            <label>WiFi Network Name (SSID)</label>
+            <input type="text" id="cfg-wifi-ssid" placeholder="Your WiFi SSID">
+            <span class="form-help">Leave empty to keep existing device WiFi settings.</span>
+          </div>
+          <div class="form-group">
+            <label>WiFi Password (WPA2-PSK)</label>
+            <input type="password" id="cfg-wifi-pass" placeholder="Your WiFi Password">
+          </div>
+        </div>
+
+        <!-- Services Configuration -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+              Services &amp; Daemons
+            </span>
+          </div>
+
+          <!-- Total Cloud Disconnect -->
+          <div class="control-row">
+            <div>
+              <div class="control-label">Disable Xiaomi Cloud</div>
+              <div class="control-sublabel"><strong>Required for PTZ motor control</strong> &amp; total privacy</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="cfg-disable-cloud">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Disable OTA -->
+          <div class="control-row">
+            <div>
+              <div class="control-label">Disable Online OTA Updates</div>
+              <div class="control-sublabel">Prevents Xiaomi from overwriting hack</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="cfg-disable-ota">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- RTSP Streaming -->
+          <div class="control-row">
+            <div>
+              <div class="control-label">RTSP Stream Server</div>
+              <div class="control-sublabel">H.264 video feed on port 554</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="cfg-enable-rtsp">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- SSH Server -->
+          <div class="control-row">
+            <div>
+              <div class="control-label">SSH Server (Dropbear)</div>
+              <div class="control-sublabel">Secure shell access on port 22</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="cfg-enable-sshd">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Telnet Server -->
+          <div class="control-row">
+            <div>
+              <div class="control-label">Telnet Server</div>
+              <div class="control-sublabel">Legacy command shell on port 23</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="cfg-enable-telnetd">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- HTTP Web Server -->
+          <div class="control-row">
+            <div>
+              <div class="control-label">Web Server (Lighttpd)</div>
+              <div class="control-sublabel">Web interface and REST API on port 80</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="cfg-enable-httpd">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- FTP Server -->
+          <div class="control-row">
+            <div>
+              <div class="control-label">FTP Server</div>
+              <div class="control-sublabel">File transfer access to SD card</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="cfg-enable-ftpd">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- SAMBA Server -->
+          <div class="control-row">
+            <div>
+              <div class="control-label">Samba Server (Windows Share)</div>
+              <div class="control-sublabel">Network share for recordings</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="cfg-enable-samba">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: System & Home Assistant -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+
+        <!-- System & Time Settings -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+              System &amp; Time
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label>Root Password</label>
+            <input type="password" id="cfg-root-password" placeholder="Default: 1234qwer">
+            <span class="form-help">Used for SSH, Telnet, and Samba root access.</span>
+          </div>
+
+          <div class="form-group">
+            <label>NTP Time Server</label>
+            <input type="text" id="cfg-ntp-server" placeholder="pool.ntp.org">
+          </div>
+
+          <div class="form-group">
+            <label>Timezone</label>
+            <select id="cfg-timezone">
+              <option value="UTC">UTC</option>
+              <option value="Europe/Berlin">Europe/Berlin (CET/CEST)</option>
+              <option value="Europe/London">Europe/London (GMT/BST)</option>
+              <option value="Europe/Paris">Europe/Paris</option>
+              <option value="Europe/Rome">Europe/Rome</option>
+              <option value="Europe/Vienna">Europe/Vienna</option>
+              <option value="Europe/Zurich">Europe/Zurich</option>
+              <option value="America/New_York">America/New_York (EST/EDT)</option>
+              <option value="America/Chicago">America/Chicago (CST/CDT)</option>
+              <option value="America/Denver">America/Denver (MST/MDT)</option>
+              <option value="America/Los_Angeles">America/Los_Angeles (PST/PDT)</option>
+              <option value="Asia/Shanghai">Asia/Shanghai (CST)</option>
+              <option value="Asia/Tokyo">Asia/Tokyo (JST)</option>
+              <option value="Australia/Sydney">Australia/Sydney (AEST)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Home Assistant Integration Helper -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              Home Assistant Integration
+            </span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+            Copy these configuration snippets into your Home Assistant <code>configuration.yaml</code> and Lovelace dashboard to get RTSP video and PTZ controls!
+          </p>
+
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">1. configuration.yaml (Camera &amp; PTZ Rest Commands)</label>
+          <div class="code-box" id="ha-config-yaml">
+camera:
+  - platform: ffmpeg
+    name: Mijia 720p
+    input: -rtsp_transport tcp -i rtsp://<span class="ha-ip">CAMERA_IP</span>:554/live/ch00_0
+
+rest_command:
+  mijia_ptz_up:
+    url: "http://<span class="ha-ip">CAMERA_IP</span>/api/motor.php?action=move&dir=up&step=3"
+    method: GET
+  mijia_ptz_down:
+    url: "http://<span class="ha-ip">CAMERA_IP</span>/api/motor.php?action=move&dir=down&step=3"
+    method: GET
+  mijia_ptz_left:
+    url: "http://<span class="ha-ip">CAMERA_IP</span>/api/motor.php?action=move&dir=left&step=3"
+    method: GET
+  mijia_ptz_right:
+    url: "http://<span class="ha-ip">CAMERA_IP</span>/api/motor.php?action=move&dir=right&step=3"
+    method: GET
+  mijia_ptz_center:
+    url: "http://<span class="ha-ip">CAMERA_IP</span>/api/motor.php?action=center"
+    method: GET
+  mijia_ptz_preset_1:
+    url: "http://<span class="ha-ip">CAMERA_IP</span>/api/motor.php?action=preset&id=1"
+    method: GET
+          </div>
+          <button class="btn btn-sm" style="margin-top: 8px;" onclick="copyHaConfig()">Copy YAML</button>
+
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-top: 16px; display: block;">2. Lovelace Card with PTZ Buttons</label>
+          <div class="code-box" id="ha-lovelace-yaml">
+type: picture-glance
+title: Mijia 720p PTZ
+camera_image: camera.mijia_720p
+entities: []
+tap_action:
+  action: none
+hold_action:
+  action: none
+          </div>
+          <button class="btn btn-sm" style="margin-top: 8px;" onclick="copyHaLovelace()">Copy Lovelace</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="app.js"></script>
+  <script>
+    async function loadSettings() {
+      try {
+        const data = await App.request('settings');
+        if (data && data.config) {
+          const cfg = data.config;
+          document.getElementById('cfg-wifi-ssid').value = cfg.WIFI_SSID || '';
+          document.getElementById('cfg-wifi-pass').value = cfg.WIFI_PASS || '';
+          document.getElementById('cfg-root-password').value = cfg.ROOT_PASSWORD || '';
+          document.getElementById('cfg-ntp-server').value = cfg.NTP_SERVER || 'pool.ntp.org';
+          if (cfg.TIMEZONE) document.getElementById('cfg-timezone').value = cfg.TIMEZONE;
+
+          document.getElementById('cfg-disable-cloud').checked = (cfg.DISABLE_CLOUD === '1');
+          document.getElementById('cfg-disable-ota').checked = (cfg.DISABLE_OTA === '1');
+          document.getElementById('cfg-enable-rtsp').checked = (cfg.ENABLE_RTSP === '1');
+          document.getElementById('cfg-enable-sshd').checked = (cfg.ENABLE_SSHD === '1');
+          document.getElementById('cfg-enable-telnetd').checked = (cfg.ENABLE_TELNETD === '1');
+          document.getElementById('cfg-enable-httpd').checked = (cfg.ENABLE_HTTPD === '1');
+          document.getElementById('cfg-enable-ftpd').checked = (cfg.ENABLE_FTPD === '1');
+          document.getElementById('cfg-enable-samba').checked = (cfg.ENABLE_SAMBA === '1');
+        }
+      } catch (e) {
+        console.error('Failed to load settings', e);
+      }
+
+      // Update Home Assistant IP placeholders
+      const ip = window.location.hostname;
+      document.querySelectorAll('.ha-ip').forEach(el => el.textContent = ip);
+    }
+
+    async function saveAllSettings() {
+      const payload = {
+        method: 'POST',
+        WIFI_SSID: document.getElementById('cfg-wifi-ssid').value.trim(),
+        WIFI_PASS: document.getElementById('cfg-wifi-pass').value.trim(),
+        ROOT_PASSWORD: document.getElementById('cfg-root-password').value.trim(),
+        NTP_SERVER: document.getElementById('cfg-ntp-server').value.trim(),
+        TIMEZONE: document.getElementById('cfg-timezone').value,
+        DISABLE_CLOUD: document.getElementById('cfg-disable-cloud').checked ? '1' : '0',
+        DISABLE_OTA: document.getElementById('cfg-disable-ota').checked ? '1' : '0',
+        ENABLE_RTSP: document.getElementById('cfg-enable-rtsp').checked ? '1' : '0',
+        ENABLE_SSHD: document.getElementById('cfg-enable-sshd').checked ? '1' : '0',
+        ENABLE_TELNETD: document.getElementById('cfg-enable-telnetd').checked ? '1' : '0',
+        ENABLE_HTTPD: document.getElementById('cfg-enable-httpd').checked ? '1' : '0',
+        ENABLE_FTPD: document.getElementById('cfg-enable-ftpd').checked ? '1' : '0',
+        ENABLE_SAMBA: document.getElementById('cfg-enable-samba').checked ? '1' : '0'
+      };
+
+      try {
+        await App.request('settings', payload);
+        App.showToast('Settings saved successfully!');
+      } catch (e) {
+        App.showToast('Failed to save settings: ' + e.message, 'error');
+      }
+    }
+
+    function copyHaConfig() {
+      const text = document.getElementById('ha-config-yaml').innerText;
+      App.copyText(text);
+    }
+
+    function copyHaLovelace() {
+      const text = document.getElementById('ha-lovelace-yaml').innerText;
+      App.copyText(text);
+    }
+
+    document.addEventListener('DOMContentLoaded', loadSettings);
+  </script>
+</body>
 </html>

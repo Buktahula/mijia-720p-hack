@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mijia 720p Hack - Video Recordings</title>
+  <link rel="stylesheet" href="mijia.css">
+  <style>
+    .recordings-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+    }
+    .recordings-table th, .recordings-table td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .recordings-table tr:hover {
+      background-color: var(--bg-card-hover);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+      Mijia 720p Hack
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Dashboard</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="recordings.html" class="active">Recordings</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h1 style="font-size: 1.5rem; font-weight: 700;">Recorded Videos</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          Browse, stream, download, and manage video recordings saved on the MicroSD card.
+        </p>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <button class="btn btn-sm btn-primary" onclick="loadRecordings()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+          Refresh
+        </button>
+        <a href="/media/" class="btn btn-sm" target="_blank">Direct Directory Listing</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div id="recordings-container">
+        <p style="color: var(--text-muted); padding: 20px; text-align: center;">Loading recordings list...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Playback Modal -->
+  <div class="modal-backdrop" id="video-modal" onclick="closeModal(event)">
+    <div class="modal-content" style="max-width: 720px; width: 95%;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 id="modal-video-title" style="font-size: 1.1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Playing Video</h3>
+        <button class="btn btn-sm" onclick="closeModalDirect()">✕ Close</button>
+      </div>
+      <video id="modal-video-player" controls autoplay style="width: 100%; border-radius: var(--radius-sm); background: #000; max-height: 70vh;">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="app.js"></script>
+  <script>
+    async function loadRecordings() {
+      const container = document.getElementById('recordings-container');
+      container.innerHTML = '<p style="color: var(--text-muted); padding: 20px; text-align: center;">Loading recordings list...</p>';
+      
+      try {
+        const data = await App.request('recordings', { action: 'list' });
+        if (!data || !data.recordings || data.recordings.length === 0) {
+          container.innerHTML = `
+            <div style="padding: 40px; text-align: center;">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="#334155"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+              <h3 style="margin-top: 12px; font-size: 1.1rem;">No recordings found</h3>
+              <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 6px;">
+                Recorded files will appear here when motion recording or continuous recording is active.
+              </p>
+              <a href="/media/" class="btn btn-sm" style="margin-top: 14px;" target="_blank">Open /media/ directory</a>
+            </div>
+          `;
+          return;
+        }
+
+        let html = `
+          <table class="recordings-table">
+            <thead>
+              <tr style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase;">
+                <th>File Name</th>
+                <th>Date / Time</th>
+                <th>Size</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+        `;
+
+        data.recordings.forEach(rec => {
+          html += `
+            <tr>
+              <td style="font-weight: 500;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 6px; color: var(--primary);"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+                ${escapeHtml(rec.filename)}
+              </td>
+              <td style="font-size: 0.85rem; color: var(--text-muted);">${escapeHtml(rec.date)}</td>
+              <td style="font-size: 0.85rem; font-family: monospace;">${escapeHtml(rec.size_formatted)}</td>
+              <td style="text-align: right; white-space: nowrap;">
+                <button class="btn btn-sm btn-primary" onclick="playVideo('${encodeURI(rec.url)}', '${escapeHtml(rec.filename)}')">Play</button>
+                <a href="${encodeURI(rec.url)}" download class="btn btn-sm" style="margin-left: 4px;">Download</a>
+                <button class="btn btn-sm btn-danger" style="margin-left: 4px;" onclick="deleteVideo('${encodeURIComponent(rec.path)}')">Delete</button>
+              </td>
+            </tr>
+          `;
+        });
+
+        html += '</tbody></table>';
+        container.innerHTML = html;
+      } catch (err) {
+        container.innerHTML = `
+          <div style="padding: 30px; text-align: center; color: var(--danger);">
+            <p>Failed to load recordings via API: ${escapeHtml(err.message)}</p>
+            <p style="margin-top: 10px;">
+              <a href="/media/" class="btn btn-sm btn-accent" target="_blank">Open /media/ directory directly</a>
+            </p>
+          </div>
+        `;
+      }
+    }
+
+    function playVideo(url, title) {
+      const modal = document.getElementById('video-modal');
+      const player = document.getElementById('modal-video-player');
+      const titleEl = document.getElementById('modal-video-title');
+      titleEl.textContent = title;
+      player.src = url;
+      modal.style.display = 'flex';
+      player.play();
+    }
+
+    function closeModal(event) {
+      if (event.target.id === 'video-modal') {
+        closeModalDirect();
+      }
+    }
+
+    function closeModalDirect() {
+      const modal = document.getElementById('video-modal');
+      const player = document.getElementById('modal-video-player');
+      player.pause();
+      player.src = '';
+      modal.style.display = 'none';
+    }
+
+    async function deleteVideo(path) {
+      if (!confirm('Are you sure you want to permanently delete this recording?')) return;
+      try {
+        await App.request('recordings', { action: 'delete', file: decodeURIComponent(path) });
+        App.showToast('Recording deleted!');
+        loadRecordings();
+      } catch (e) {
+        App.showToast('Failed to delete recording: ' + e.message, 'error');
+      }
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    document.addEventListener('DOMContentLoaded', loadRecordings);
+  </script>
+</body>
+</html>

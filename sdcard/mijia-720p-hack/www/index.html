@@ -1,39 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width" />
-    <title>Mijia 720P hack</title>
-    <link rel="stylesheet" href="mijia.css">
-  </head>
-  <body>
-    <ul class="topnav">
-      <li><a href="index.html" class="active">Home</a></li>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mijia 720p Hack - Dashboard</title>
+  <link rel="stylesheet" href="mijia.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+      Mijia 720p Hack
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Dashboard</a></li>
       <li><a href="settings.html">Settings</a></li>
-      <li class="right"><a href="about.html">About</a></li>
+      <li><a href="recordings.html">Recordings</a></li>
+      <li><a href="about.html">About</a></li>
     </ul>
+  </nav>
 
-    <div style="padding:0 16px;">
-    <h1>Mijia 720P HTTP Server</h1>
-    <p>This Mijia is powered by a custom firmware. See <a href="https://github.com/ghoost82/mijia-720p-hack"</a> for more informations</a>.</p>
-    <h2>RTSP stream channels</h2>
-    <p>This camera IP is <span id="ip"></span></p>
-    <ul>
-      <li><a id="ch0_0" href="">High definition video stream</a></li>
-    </ul>
-    <h2>Record files</h2>
-    <ul>
-      <li><a href="/media/">Click here to access the record files.</a></li>
-    </ul>
-    <h2>Log files</h2>
-    <ul>
-      <li><a href="/log/">Click here to access the log files.</a></li>
-    </ul>
-    <div>
-    <script type="text/javascript">
-      var ip = location.host;
-      document.getElementById("ip").textContent=ip;
-      document.getElementById("ch0_0").href="rtsp://"+ip+":554/live/ch00_0";
-    </script>
-  </body>
+  <div class="container">
+    <!-- Top System Header Bar -->
+    <div class="card" style="margin-bottom: 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <h2 style="font-size: 1.3rem; font-weight: 700;">Xiaomi Mijia 720p 360°</h2>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            IP: <strong id="sys-ip" style="color: var(--primary);">Loading...</strong> | 
+            WiFi: <span id="sys-wifi-ssid">-</span> (<span id="sys-wifi-signal">-</span>) | 
+            Uptime: <span id="sys-uptime">-</span>
+          </p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn btn-sm btn-primary" onclick="App.refreshAll()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+            Refresh
+          </button>
+          <button class="btn btn-sm btn-danger" onclick="App.reboot()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42C17.99 7.86 19 9.81 19 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-2.19 1.01-4.14 2.58-5.42L6.17 5.17C4.23 6.82 3 9.26 3 12c0 4.97 4.03 9 9 9s9-4.03 9-9c0-2.74-1.23-5.18-3.17-6.83z"/></svg>
+            Reboot
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid">
+      <!-- Left Column: Video Stream & Hardware Controls -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- Video Stream Card -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+              Live Video Stream
+            </span>
+            <span class="badge badge-success" id="srv-badge-rtsp">RTSP Active</span>
+          </div>
+
+          <!-- Video placeholder container -->
+          <div class="stream-box">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="#334155"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2z"/></svg>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">
+              Direct H.264 RTSP Stream Available
+            </p>
+            <div class="stream-footer">
+              <span id="rtsp-url" style="font-family: monospace; font-size: 0.8rem; color: var(--primary); text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 65%;">
+                rtsp://...:554/live/ch00_0
+              </span>
+              <div style="display: flex; gap: 6px;">
+                <button class="btn btn-sm" onclick="App.copyRtspUrl()">Copy RTSP</button>
+                <a id="vlc-link" href="#" class="btn btn-sm btn-accent" onclick="window.location.href='vlc://'+document.getElementById('rtsp-url').textContent.replace('rtsp://','');">VLC</a>
+              </div>
+            </div>
+          </div>
+          <p class="form-help" style="margin-top: 10px;">
+            Watch using VLC, Home Assistant, Agent DVR, or Shinobi via RTSP port 554.
+          </p>
+        </div>
+
+        <!-- Camera & Image Controls Card -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+              Camera & Optics Controls
+            </span>
+          </div>
+
+          <!-- Night Vision Mode -->
+          <div class="control-row">
+            <div>
+              <div class="control-label">Night Vision Mode</div>
+              <div class="control-sublabel">Sensor IR filter & illumination</div>
+            </div>
+            <select id="night-mode-select" style="width: 140px;" onchange="App.setNightMode(this.value)">
+              <option value="auto">Auto (Sensor)</option>
+              <option value="on">Night (Always On)</option>
+              <option value="off">Day (Always Off)</option>
+            </select>
+          </div>
+
+          <!-- IR-Cut Filter -->
+          <div class="control-row">
+            <div>
+              <div class="control-label">IR-Cut Filter</div>
+              <div class="control-sublabel">Physical IR-blocking glass switch</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="ircut-switch" onchange="App.setIrCut(this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- IR LED Brightness Slider -->
+          <div class="control-row">
+            <div>
+              <div class="control-label">IR LED Brightness</div>
+              <div class="control-sublabel">PWM Illumination (0–255)</div>
+            </div>
+            <div class="range-slider-wrap">
+              <input type="range" min="0" max="255" value="0" class="range-slider" id="irled-slider" oninput="document.getElementById('irled-val').textContent=this.value" onchange="App.setIrLed(this.value)">
+              <span class="range-value" id="irled-val">0</span>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 12px;">
+            <button class="btn btn-sm" onclick="App.setIrLed(0)">Off (0)</button>
+            <button class="btn btn-sm" onclick="App.setIrLed(128)">50% (128)</button>
+            <button class="btn btn-sm" onclick="App.setIrLed(255)">100% (255)</button>
+          </div>
+
+          <!-- Flip & Mirror -->
+          <div class="control-row">
+            <div>
+              <div class="control-label">Vertical Flip</div>
+              <div class="control-sublabel">Upside-down ceiling mount</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="flip-switch" onchange="App.setFlip(this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="control-row">
+            <div>
+              <div class="control-label">Horizontal Mirror</div>
+              <div class="control-sublabel">Mirror left / right</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="mirror-switch" onchange="App.setMirror(this.checked)">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <!-- Status LEDs -->
+          <div class="control-row">
+            <div>
+              <div class="control-label">Blue Status LED</div>
+              <div class="control-sublabel">Front indicator</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="blue-led-switch" onchange="App.setLed('blue', this.checked ? 'on' : 'off')">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="control-row">
+            <div>
+              <div class="control-label">Yellow Status LED</div>
+              <div class="control-sublabel">Boot / alert indicator</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="yellow-led-switch" onchange="App.setLed('yellow', this.checked ? 'on' : 'off')">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: PTZ Motor Control & System Health -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- PTZ Motor Control Card -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+              PTZ Motor Control (Pan & Tilt)
+            </span>
+            <!-- Step Size Selector -->
+            <div class="btn-group">
+              <button class="btn btn-sm step-btn" data-step="1">1x (Fine)</button>
+              <button class="btn btn-sm step-btn active" data-step="3">3x (Norm)</button>
+              <button class="btn btn-sm step-btn" data-step="5">5x (Fast)</button>
+            </div>
+          </div>
+
+          <!-- Virtual D-Pad -->
+          <div class="dpad-container">
+            <div class="dpad">
+              <button class="dpad-btn dpad-up" title="Tilt Up (Up Arrow)" onclick="App.move('up')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>
+              </button>
+              <button class="dpad-btn dpad-down" title="Tilt Down (Down Arrow)" onclick="App.move('down')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+              </button>
+              <button class="dpad-btn dpad-left" title="Pan Left (Left Arrow)" onclick="App.move('left')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+              </button>
+              <button class="dpad-btn dpad-right" title="Pan Right (Right Arrow)" onclick="App.move('right')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+              </button>
+              <button class="dpad-btn dpad-center" title="Center Camera (Home key)" onclick="App.center()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+              </button>
+            </div>
+            <p class="form-help" style="margin-top: 10px; text-align: center;">
+              💡 <em>Tip: You can use your keyboard's <strong>Arrow keys</strong> &amp; <strong>Home</strong> key!</em>
+            </p>
+          </div>
+
+          <!-- Position Indicators -->
+          <div class="coord-box">
+            <div class="coord-item" style="flex: 1;">
+              <span class="coord-label">Horizontal (Pan)</span>
+              <span class="coord-val"><span id="ptz-x-val">16</span> / 31</span>
+              <div class="stat-bar" style="margin: 4px 10px 0;"><div class="stat-bar-fill" id="ptz-x-bar" style="width: 50%;"></div></div>
+            </div>
+            <div class="coord-item" style="flex: 1;">
+              <span class="coord-label">Vertical (Tilt)</span>
+              <span class="coord-val"><span id="ptz-y-val">7</span> / 15</span>
+              <div class="stat-bar" style="margin: 4px 10px 0;"><div class="stat-bar-fill" id="ptz-y-bar" style="width: 50%;"></div></div>
+            </div>
+          </div>
+
+          <!-- Presets -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px;">
+            <span style="font-size: 0.9rem; font-weight: 600;">Position Presets</span>
+            <button class="btn btn-sm" onclick="App.calibrate()">⚙️ Calibrate Motors</button>
+          </div>
+
+          <div class="presets-grid">
+            <!-- Preset 1 -->
+            <div class="preset-card">
+              <div class="preset-header">
+                <span>Preset 1</span>
+                <span class="preset-coords" id="preset-coords-1">(16, 7)</span>
+              </div>
+              <div style="display: flex; gap: 6px;">
+                <button class="btn btn-sm btn-primary" style="flex: 1;" onclick="App.gotoPreset(1)">Go</button>
+                <button class="btn btn-sm" title="Save current position as Preset 1" onclick="App.savePreset(1)">Save</button>
+              </div>
+            </div>
+            <!-- Preset 2 -->
+            <div class="preset-card">
+              <div class="preset-header">
+                <span>Preset 2</span>
+                <span class="preset-coords" id="preset-coords-2">(0, 7)</span>
+              </div>
+              <div style="display: flex; gap: 6px;">
+                <button class="btn btn-sm btn-primary" style="flex: 1;" onclick="App.gotoPreset(2)">Go</button>
+                <button class="btn btn-sm" title="Save current position as Preset 2" onclick="App.savePreset(2)">Save</button>
+              </div>
+            </div>
+            <!-- Preset 3 -->
+            <div class="preset-card">
+              <div class="preset-header">
+                <span>Preset 3</span>
+                <span class="preset-coords" id="preset-coords-3">(31, 7)</span>
+              </div>
+              <div style="display: flex; gap: 6px;">
+                <button class="btn btn-sm btn-primary" style="flex: 1;" onclick="App.gotoPreset(3)">Go</button>
+                <button class="btn btn-sm" title="Save current position as Preset 3" onclick="App.savePreset(3)">Save</button>
+              </div>
+            </div>
+            <!-- Preset 4 -->
+            <div class="preset-card">
+              <div class="preset-header">
+                <span>Preset 4</span>
+                <span class="preset-coords" id="preset-coords-4">(16, 0)</span>
+              </div>
+              <div style="display: flex; gap: 6px;">
+                <button class="btn btn-sm btn-primary" style="flex: 1;" onclick="App.gotoPreset(4)">Go</button>
+                <button class="btn btn-sm" title="Save current position as Preset 4" onclick="App.savePreset(4)">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Status & Services Card -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+              System Health &amp; Services
+            </span>
+            <span style="font-size: 0.8rem; color: var(--text-dim);">Load: <span id="sys-load">-</span></span>
+          </div>
+
+          <!-- Memory Usage -->
+          <div style="margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+              <span style="color: var(--text-muted);">RAM Memory</span>
+              <span id="sys-mem-text">- / -</span>
+            </div>
+            <div class="stat-bar"><div class="stat-bar-fill" id="sys-mem-bar" style="width: 0%;"></div></div>
+          </div>
+
+          <!-- Storage Usage -->
+          <div style="margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+              <span style="color: var(--text-muted);">MicroSD Card (/tmp/sd)</span>
+              <span id="sys-sd-text">- / -</span>
+            </div>
+            <div class="stat-bar"><div class="stat-bar-fill" id="sys-sd-bar" style="width: 0%;"></div></div>
+          </div>
+
+          <!-- Services Grid -->
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 0.85rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #111722; padding: 6px 10px; border-radius: 6px;">
+              <span>RTSP Server</span>
+              <span class="badge badge-neutral" id="srv-badge-rtsp">...</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #111722; padding: 6px 10px; border-radius: 6px;">
+              <span>SSH (Dropbear)</span>
+              <span class="badge badge-neutral" id="srv-badge-ssh">...</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #111722; padding: 6px 10px; border-radius: 6px;">
+              <span>HTTP Web</span>
+              <span class="badge badge-neutral" id="srv-badge-http">...</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #111722; padding: 6px 10px; border-radius: 6px;">
+              <span>FTP Server</span>
+              <span class="badge badge-neutral" id="srv-badge-ftp">...</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #111722; padding: 6px 10px; border-radius: 6px;">
+              <span>Samba (SMB)</span>
+              <span class="badge badge-neutral" id="srv-badge-samba">...</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #111722; padding: 6px 10px; border-radius: 6px;">
+              <span>Xiaomi Cloud</span>
+              <span class="badge badge-neutral" id="srv-badge-cloud">...</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
 </html>

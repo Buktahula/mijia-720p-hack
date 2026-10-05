@@ -1,39 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width" />
-    <title>Mijia 720P hack</title>
-    <link rel="stylesheet" href="mijia.css">
-  </head>
-  <body>
-    <ul class="topnav">
-      <li><a href="index.html">Home</a></li>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mijia 720p Hack - About</title>
+  <link rel="stylesheet" href="mijia.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+      Mijia 720p Hack
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Dashboard</a></li>
       <li><a href="settings.html">Settings</a></li>
-      <li class="right"><a href="about.html" class="active">About</a></li>
+      <li><a href="recordings.html">Recordings</a></li>
+      <li><a href="about.html" class="active">About</a></li>
     </ul>
+  </nav>
 
-    <div style="padding:0 16px;">
-    <h1>Mijia 720P HTTP Server</h1>
-    <p>This Mijia is powered by a custom firmware. See <a href="https://github.com/ghoost82/mijia-720p-hack"</a> for more informations</a>.</p>
-    <h2>RTSP stream channels</h2>
-    <p>This camera IP is <span id="ip"></span></p>
-    <ul>
-      <li><a id="ch0_0" href="">High definition video stream</a></li>
-    </ul>
-    <h2>Record files</h2>
-    <ul>
-      <li><a href="/media/">Click here to access the record files.</a></li>
-    </ul>
-    <h2>Log files</h2>
-    <ul>
-      <li><a href="/log/">Click here to access the log files.</a></li>
-    </ul>
-    <div>
-    <script type="text/javascript">
-      var ip = location.host;
-      document.getElementById("ip").textContent=ip;
-      document.getElementById("ch0_0").href="rtsp://"+ip+":554/live/ch00_0";
-    </script>
-  </body>
+  <div class="container">
+    <div style="margin-bottom: 24px;">
+      <h1 style="font-size: 1.5rem; font-weight: 700;">About Mijia 720p Hack</h1>
+      <p style="color: var(--text-muted); font-size: 0.9rem;">
+        Modern custom firmware modification for the Xiaomi Mijia 720p 360° Smart Home Camera (Grain Media GM8136S).
+      </p>
+    </div>
+
+    <div class="grid">
+      <!-- Hardware & Architecture -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Hardware Specifications</span>
+        </div>
+        <table style="font-size: 0.9rem;">
+          <tr>
+            <td style="color: var(--text-muted); width: 40%;">SoC</td>
+            <td><strong>Grain Media GM8136S</strong> (ARMv5TE @ 400MHz)</td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-muted);">RAM</td>
+            <td>64 MB DDR</td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-muted);">Sensor / Video</td>
+            <td>1.0MP CMOS, 1280x720p @ 25fps H.264</td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-muted);">PTZ Motors</td>
+            <td>360° Horizontal Pan (0..31 steps), 115° Vertical Tilt (0..15 steps) via <code>/dev/motor</code></td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-muted);">Night Vision</td>
+            <td>850nm IR LEDs (PWM 0..255) + Mechanical IR-Cut filter</td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-muted);">Audio</td>
+            <td>Microphone &amp; Internal Speaker</td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-muted);">Network</td>
+            <td>802.11 b/g/n 2.4GHz Wi-Fi (Realtek 8188)</td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-muted);">Storage</td>
+            <td>MicroSD Slot (FAT32, mounted at <code>/tmp/sd</code>)</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Features & Services -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Firmware Features</span>
+        </div>
+        <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.8; color: var(--text);">
+          <li><strong>Local RTSP Server:</strong> High quality direct H.264 stream at <code>rtsp://&lt;IP&gt;:554/live/ch00_0</code>.</li>
+          <li><strong>Full PTZ Motor Control:</strong> Virtual D-Pad, variable step sizes, position presets, calibration, and keyboard navigation.</li>
+          <li><strong>Home Assistant Ready:</strong> Direct integration via RTSP and REST API commands.</li>
+          <li><strong>Cloud Free:</strong> Eliminates telemetry and dependency on external servers.</li>
+          <li><strong>Services:</strong> Dropbear SSH, Telnet, Lighttpd HTTP, FTP, Samba, NTP sync.</li>
+          <li><strong>Video Recordings:</strong> In-browser MP4 recording browser and video player.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- REST API Reference -->
+    <div class="card" style="margin-top: 20px;">
+      <div class="card-header">
+        <span class="card-title">REST API Reference</span>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+        All API endpoints accept GET and POST requests and return JSON responses.
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.85rem;">
+        <div style="background: #101622; padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+          <strong style="color: var(--primary);">/api/motor.php</strong>
+          <ul style="padding-left: 20px; margin-top: 6px; color: var(--text-muted);">
+            <li><code>?action=status</code> — Returns current motor position (HPOS, VPOS, x, y)</li>
+            <li><code>?action=move&amp;dir=up|down|left|right&amp;step=1..5</code> — Move in direction</li>
+            <li><code>?action=goto&amp;x=0..31&amp;y=0..15</code> — Move to absolute coordinates</li>
+            <li><code>?action=center</code> — Move to center position (16, 7)</li>
+            <li><code>?action=calibrate</code> — Run motor limit calibration sequence</li>
+            <li><code>?action=preset&amp;id=1..4</code> — Move to saved position preset</li>
+            <li><code>?action=set_preset&amp;id=1..4</code> — Save current position to preset</li>
+          </ul>
+        </div>
+
+        <div style="background: #101622; padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+          <strong style="color: var(--primary);">/api/camera.php</strong>
+          <ul style="padding-left: 20px; margin-top: 6px; color: var(--text-muted);">
+            <li><code>?action=status</code> — Returns night mode, IR-cut, IR LED brightness, flip, mirror, LEDs</li>
+            <li><code>?action=night_mode&amp;mode=auto|on|off</code> — Set night vision mode</li>
+            <li><code>?action=ir_led&amp;value=0..255</code> — Set IR LED brightness</li>
+            <li><code>?action=ir_cut&amp;state=on|off</code> — Switch physical IR-cut filter</li>
+            <li><code>?action=flip&amp;state=on|off</code> — Toggle ceiling vertical flip</li>
+            <li><code>?action=mirror&amp;state=on|off</code> — Toggle horizontal mirror</li>
+            <li><code>?action=led&amp;color=blue|yellow&amp;state=on|off|blink</code> — Control front status LEDs</li>
+          </ul>
+        </div>
+
+        <div style="background: #101622; padding: 10px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+          <strong style="color: var(--primary);">/api/system.php</strong>
+          <ul style="padding-left: 20px; margin-top: 6px; color: var(--text-muted);">
+            <li><code>?action=info</code> — Returns CPU load, memory, SD card usage, WiFi signal, services</li>
+            <li><code>?action=reboot</code> — Safely reboot the camera</li>
+            <li><code>?action=service&amp;name=&lt;svc&gt;&amp;cmd=start|stop|restart</code> — Manage services</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Credits & Links -->
+    <div class="card" style="margin-top: 20px;">
+      <div class="card-header">
+        <span class="card-title">Credits &amp; Open Source Community</span>
+      </div>
+      <p style="font-size: 0.9rem; color: var(--text-muted);">
+        Originally created by <strong>Jan Sperling (ghoost82)</strong> and enhanced by <strong>Buktahula</strong> and the open source community.
+      </p>
+      <div style="display: flex; gap: 10px; margin-top: 14px;">
+        <a href="https://github.com/Buktahula/mijia-720p-hack" target="_blank" class="btn btn-sm btn-primary">GitHub Repository</a>
+        <a href="https://github.com/ghoost82/mijia-720p-hack" target="_blank" class="btn btn-sm">Original Fork</a>
+        <a href="/log/" target="_blank" class="btn btn-sm">System Logs (/log/)</a>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
