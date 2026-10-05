@@ -1,0 +1,23 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Xiaomi Mijia 720p Kamera (Gehackt)",
+        "description": "Gib die IP-Adresse deiner gehackten Mijia 720p Kamera ein.",
+        "data": {
+          "host": "Kamera IP-Adresse",
+          "name": "Integrations-Name",
+          "step_size": "Standard PTZ-Schrittweite (1-10)",
+          "port": "Web-Port (Standard 80)",
+          "rtsp_port": "RTSP-Stream-Port (Standard 554)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Verbindung zur Kamera fehlgeschlagen. Stelle sicher, dass die Kamera online ist und der Hack läuft."
+    },
+    "abort": {
+      "already_configured": "Diese Kamera ist bereits eingerichtet."
+    }
+  }
+}

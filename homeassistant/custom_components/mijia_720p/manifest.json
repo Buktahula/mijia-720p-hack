@@ -1,0 +1,12 @@
+{
+  "domain": "mijia_720p",
+  "name": "Xiaomi Mijia 720p (Hacked)",
+  "codeowners": ["@Buktahula"],
+  "config_flow": true,
+  "dependencies": ["ffmpeg"],
+  "documentation": "https://github.com/Buktahula/mijia-720p-hack",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/Buktahula/mijia-720p-hack/issues",
+  "version": "1.0.0"
+}

@@ -94,8 +94,28 @@ The web interface is available at `http://<your-camera-ip>/`:
 
 ## 🏠 Home Assistant Integration
 
-### 1. `configuration.yaml`
+You can integrate your camera in **two ways**:
+1. **Zero-YAML UI Integration & Lovelace Card (Recommended):** Uses the included custom component and touch D-Pad card in the `homeassistant/` folder.
+2. **Manual YAML Configuration:** Uses standard Home Assistant `camera.ffmpeg` and `rest_command`.
 
+---
+
+### Option A: Zero-YAML Setup (Recommended)
+
+1. **Install Integration:** Copy `homeassistant/custom_components/mijia_720p` to your Home Assistant's `/config/custom_components/` directory.
+2. **Restart Home Assistant.**
+3. In Home Assistant, go to **Settings → Devices & Services → Add Integration**, search for **Xiaomi Mijia 720p (Hacked)**, enter your camera IP, and submit! All entities (Camera RTSP stream, PTZ buttons, presets, night vision selector, IR LED slider, sensors) are created automatically.
+4. **Install Lovelace PTZ Card:** Copy `homeassistant/www/mijia-ptz-card.js` to `/config/www/` and add `/local/mijia-ptz-card.js` as a Lovelace Resource. Add the card to your dashboard visually via the Card Picker!
+
+See [`homeassistant/README.md`](homeassistant/README.md) for full details.
+
+---
+
+### Option B: Manual YAML Configuration
+
+If you prefer manual YAML configuration:
+
+#### 1. `configuration.yaml`
 Add the camera stream and REST commands for motor movement:
 
 ```yaml

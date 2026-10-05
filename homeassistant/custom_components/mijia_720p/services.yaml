@@ -1,0 +1,66 @@
+ptz_move:
+  name: PTZ Move
+  description: Move the camera motor in a given direction.
+  fields:
+    direction:
+      name: Direction
+      description: Direction to move (up, down, left, right).
+      required: true
+      example: up
+      selector:
+        select:
+          options:
+            - up
+            - down
+            - left
+            - right
+    step:
+      name: Step Count
+      description: Number of steps (1 to 15).
+      default: 3
+      example: 3
+      selector:
+        number:
+          min: 1
+          max: 15
+
+ptz_goto:
+  name: PTZ Goto Position
+  description: Move the camera to absolute coordinates.
+  fields:
+    x:
+      name: Horizontal Pan (X)
+      description: Pan coordinate (0 to 31).
+      required: true
+      example: 16
+      selector:
+        number:
+          min: 0
+          max: 31
+    y:
+      name: Vertical Tilt (Y)
+      description: Tilt coordinate (0 to 15).
+      required: true
+      example: 7
+      selector:
+        number:
+          min: 0
+          max: 15
+
+ptz_center:
+  name: PTZ Center Camera
+  description: Centers the camera at position (16, 7).
+
+ptz_preset:
+  name: PTZ Go To Preset
+  description: Moves the camera to a saved position preset.
+  fields:
+    id:
+      name: Preset ID
+      description: Preset number (1 to 4).
+      required: true
+      example: 1
+      selector:
+        number:
+          min: 1
+          max: 4
